@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="model.ElementosDao" %>
 <%@ page import="model.ElementosVo" %>
 <%@ page import="java.util.List" %>
@@ -47,22 +48,18 @@
                 <select class="desp" name="TipoElemento" id="TipoElemento" required>
                     <option disabled selected value="">Seleccionar el tipo</option>
                     <option>Consumo</option>
-                    <option>Desechable</option>
+                                   <option>Desechable</option>
                 </select>
                 <label>Fecha Ingreso:</label>
                 <input type="date" name="FechaIngresoElemento" id="FechaIngresoElemento" required>
                 <label>Categoría:</label>
                 <select class="desp" name="categoriaElemento" id="categoriaElemento" required>
                     <option disabled selected value="">Seleccionar una categoria</option>
-                    <option>Componente electrónico</option>
-                    <option>Computador todo en uno</option>
-                    <option>Computador portátil</option>
-                    <option>Periférico</option>
-                    <option>Arduino</option>
-                    <option>Equipo de red</option>
-                    <option>Herramientas de red</option>
-                    <option>Cámara</option>
-                    <option>Accesorio cámara</option>
+                    <c:forEach var="categoria" items="${categorias}"> 
+                    <option>${categoria.getNombreCategoria()}</option>    
+                    </c:forEach>    
+                      
+                  
                 </select>
                 <label>N° Aula:</label>
                 <input type="text" name="NumAula" id="NumAula">
@@ -84,7 +81,10 @@
                     <button>Registrar Usuarios</button>
                     <button>Consultar usuarios registrados en el sistema</button>
                     <button>Consultar prestamos</button>
-                    <button>Generar reporte de relación de bienes</button>
+
+                    <a href="elemento?accion=c_categoria">    
+                       <button>Generar reporte de relación de bienes</button>
+                    </a>
                 </aside>
             </div>
         </div>

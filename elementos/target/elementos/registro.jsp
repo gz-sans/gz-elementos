@@ -116,8 +116,11 @@
                 <input type="text" id="nombre" name="nombre" required>
                 
                 <label for="usuario">Usuario:</label>
-                <input type="text" id="usuario" name="usuario" required>
-                
+                <select class="desp" name="usuario" id="usuario" required></select>
+                <option disabled selected value="">Seleccionar una categoria</option>
+                    <option>profesor</option>
+                    <option>cuentadante</option>
+                    <option>admin</option>
                 <label for="contrasena">Contraseña:</label>
                 <input type="password" id="contrasena" name="contrasena" required>
                 

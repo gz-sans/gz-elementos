@@ -9,30 +9,30 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import controller.Categoria;
  // Asegúrate de tener la librería Gson para trabajar con JSON
-
+import model.CategoriaDao;
 import model.ElementosDao;
 import model.ElementosVo;
-
 public class Elementos extends HttpServlet {
     ElementosVo e = new ElementosVo();
-    ElementosDao l = new ElementosDao();
-
+    ElementosDao l = new ElementosDao();  
+    Categoria c= new Categoria();
+    CategoriaDao cd = new CategoriaDao();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Entró al Doget");
         String a = req.getParameter("accion");
         switch (a) {
-            case "crearCategoria":
-                crearCategoria(req, resp);
+            case "c_categoria": 
+              c.c_categoria(req, resp);
                 break;
             case "listar":
                 listar(req, resp);
                 System.out.println("entro listar");
                 break;
             case "registrar":
-                registrar(req, resp);
+                req.getRequestDispatcher("views/listar.jsp").forward(req, resp);
                 System.out.println("entro listar");
                 break;
             case "buscar_elementos":
@@ -45,7 +45,7 @@ public class Elementos extends HttpServlet {
                req.getRequestDispatcher("views/home.jsp").forward(req, resp);
                 break;
             case "registro":
-               req.getRequestDispatcher("views/registrar.jsp").forward(req, resp);
+               registro(req, resp);
                 break;
         }
     }
@@ -64,26 +64,19 @@ public class Elementos extends HttpServlet {
         }
     }
 
-    private void crearCategoria(HttpServletRequest req, HttpServletResponse resp) {
-        try {
-            req.getRequestDispatcher("index.jsp").forward(req, resp);
-            System.out.println("El formulario ha sido abierto");
-        } catch (Exception e) {
-            System.out.println("El formulario NO ha sido abierto" + e.getMessage().toString());
-            
+ 
 
-        }
-    }
-
-    private void registrar(HttpServletRequest req, HttpServletResponse resp) {
+    private void registro(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            req.getRequestDispatcher("index.jsp").forward(req, resp);
+            req.getRequestDispatcher("views/registrar.jsp").forward(req, resp); 
+             req.setAttribute("categorias",cd.obtenerCategorias()); 
+             System.out.println(req.getAttribute("categorias"));
             System.out.println("El formulario ha sido abierto");
         } catch (Exception e) {
             System.out.println("El formulario NO ha sido abierto" + e.getMessage().toString());
         }
     }
-
+    
     private void listar(HttpServletRequest req, HttpServletResponse resp) {
         try {
             List<ElementosVo> elemento = l.listar();
