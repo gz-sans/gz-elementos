@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="model.ElementosDao" %>
 <%@ page import="model.ElementosVo" %>
+<%@ page import="model.CategoriaDao" %>
+<%@ page import="model.CategoriaVo" %>
 <%@ page import="java.util.List" %>
 
 <!DOCTYPE html>
@@ -55,11 +57,25 @@
                 <label>Categoría:</label>
                 <select class="desp" name="categoriaElemento" id="categoriaElemento" required>
                     <option disabled selected value="">Seleccionar una categoria</option>
-                    <c:forEach var="categoria" items="${categorias}"> 
-                    <option>${categoria.getNombreCategoria()}</option>    
-                    </c:forEach>    
-                      
-                  
+                  <!--   <c:forEach var="categoria" items="${categorias}"> 
+                    <option> ${categoria.getNombreCategoria()}</option>                        
+                    </c:forEach> -->   System.out.println(categoria.getNombreCategoria());
+
+                 <%   
+
+                 CategoriaDao cd = new CategoriaDao();
+                 
+                 
+                 List<CategoriaVo> categorias=cd.obtenerCategorias();
+                        for (CategoriaVo categoria : categorias ) { %>
+                        
+                       <option value=><%= categoria.getNombreCategoria() %>   </option>   
+                            
+                        
+                       <% } %>
+
+
+
                 </select>
                 <label>N° Aula:</label>
                 <input type="text" name="NumAula" id="NumAula">

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import controller.Categoria;
  // Asegúrate de tener la librería Gson para trabajar con JSON
 import model.CategoriaDao;
+import model.CategoriaVo;
 import model.ElementosDao;
 import model.ElementosVo;
 public class Elementos extends HttpServlet {
@@ -24,7 +25,8 @@ public class Elementos extends HttpServlet {
         System.out.println("Entró al Doget");
         String a = req.getParameter("accion");
         switch (a) {
-            case "c_categoria": 
+            case "c_categoria":    
+            // se invoca un metodo de el el servlet de categotia el cual tiene el dispacher para el formulario 
               c.c_categoria(req, resp);
                 break;
             case "listar":
@@ -68,10 +70,17 @@ public class Elementos extends HttpServlet {
 
     private void registro(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            req.getRequestDispatcher("views/registrar.jsp").forward(req, resp); 
-             req.setAttribute("categorias",cd.obtenerCategorias()); 
-             System.out.println(req.getAttribute("categorias"));
-            System.out.println("El formulario ha sido abierto");
+             req.getRequestDispatcher("views/registrar.jsp").forward(req, resp); 
+             req.setAttribute("categorias",cd.obtenerCategorias());   
+             System.out.println(req.getAttribute("categorias")); 
+            List<CategoriaVo> categorias=cd.obtenerCategorias();
+for (CategoriaVo categoria : categorias ) { 
+
+     System.out.println(categoria.getNombreCategoria());
+    
+}
+
+             System.out.println("El formulario ha sido abierto");
         } catch (Exception e) {
             System.out.println("El formulario NO ha sido abierto" + e.getMessage().toString());
         }
@@ -159,6 +168,7 @@ public class Elementos extends HttpServlet {
         List<ElementosVo> elementos = l.buscarPorTipo(tipo);
         req.setAttribute("elementos", elementos);
         req.getRequestDispatcher("views/Listar.jsp").forward(req, resp);
+       
     } catch (SQLException e) {
         System.out.println("Error al buscar elementos por tipo: " + e.getMessage());
     }

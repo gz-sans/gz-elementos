@@ -7,11 +7,13 @@
     <title>Document</title>
 </head>
 <body>
+
+    <!-- parametos con la informacion de la nueva categoria -->
     <form action="categoria" method="post">
      <label for="">Ingrese nombre de la categoria</label>
      <input type="text" name="n_categoria">
      <label for="">Caracteristicas de  la categoria</label>
-     <input type="text" name="d_categoria"> 
+     <input type="text" name="d_categoria">  
      <button type="submit" name="action" value="en_categoria">Guardar</button>  
     </form>
     

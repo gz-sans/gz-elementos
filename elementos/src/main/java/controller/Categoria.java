@@ -13,15 +13,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+
 public class Categoria extends HttpServlet {
-    private Connection connection;
-    private CategoriaDao categoriaDao;
 
+    CategoriaDao cd = new CategoriaDao();
 
-
-
-
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -56,7 +52,7 @@ public class Categoria extends HttpServlet {
 
     public  List<CategoriaVo> mostrarCategorias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            List<CategoriaVo> categorias = categoriaDao.obtenerCategorias();
+            List<CategoriaVo> categorias = cd.obtenerCategorias();
          /*    request.setAttribute("categorias", categorias);  */
             return  categorias;
         }  
@@ -70,7 +66,7 @@ public class Categoria extends HttpServlet {
 
 public void c_categoria(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            request.getRequestDispatcher("views/registrar_c.jsp").forward(request, response);;
+            request.getRequestDispatcher("views/registrar_c.jsp").forward(request, response);
         }  
             catch (ServletException e) {
             e.printStackTrace();
@@ -79,21 +75,23 @@ public void c_categoria(HttpServletRequest request, HttpServletResponse response
     }
 
 
-    private void crearCategoria(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void crearCategoria(HttpServletRequest request, HttpServletResponse response) throws IOException { 
+        System.out.println("accion de el formulario ");
         String nombreCategoria = request.getParameter("n_categoria");
-        String descripcionCategoria = request.getParameter("d_categoria");
+        String descripcionCategoria = request.getParameter("d_categoria"); 
+        System.out.println(nombreCategoria);
         CategoriaVo categoria = new CategoriaVo();
         categoria.setNombreCategoria(nombreCategoria);
         categoria.setDescripcionCategoria(descripcionCategoria);
         try {
-            categoriaDao.crearCategoria(categoria);
+            cd.crearCategoria(categoria);
         } catch (SQLException e) {
             e.printStackTrace();
             // Manejo de errores
         }
     }
-
-   /*  @Override
+/* 
+ @Override
     public void destroy() {
         super.destroy();
         try {
@@ -102,5 +100,5 @@ public void c_categoria(HttpServletRequest request, HttpServletResponse response
             e.printStackTrace();
             // Manejo de errores
         }
-    } */
+    }  */
 }

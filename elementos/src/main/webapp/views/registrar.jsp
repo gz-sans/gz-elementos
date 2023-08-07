@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="model.ElementosDao" %>
 <%@ page import="model.ElementosVo" %>
+<%@ page import="model.CategoriaDao" %>
+<%@ page import="model.CategoriaVo" %>
 <%@ page import="java.util.List" %>
 
 <!DOCTYPE html>
@@ -55,11 +57,18 @@
                 <label>Categoría:</label>
                 <select class="desp" name="categoriaElemento" id="categoriaElemento" required>
                     <option disabled selected value="">Seleccionar una categoria</option>
-                    <c:forEach var="categoria" items="${categorias}"> 
-                    <option>${categoria.getNombreCategoria()}</option>    
-                    </c:forEach>    
-                      
-                  
+
+
+              <!--   iteracion para las categorias  : se hizo con un for each importando la lista desde el modelo dao de categorias -->
+                 <%   
+                 CategoriaDao cd = new CategoriaDao();
+                 List<CategoriaVo> categorias=cd.obtenerCategorias();
+                        for (CategoriaVo categoria : categorias ) { %>                   
+                       <option value=><%= categoria.getNombreCategoria() %>   </option>   
+              <% } %>
+
+
+
                 </select>
                 <label>N° Aula:</label>
                 <input type="text" name="NumAula" id="NumAula">
@@ -81,9 +90,9 @@
                     <button>Registrar Usuarios</button>
                     <button>Consultar usuarios registrados en el sistema</button>
                     <button>Consultar prestamos</button>
-
+              <!--   boton para redireccionar a el servlet elemento para el formulario de creacion de  categoria en el servlet  elementos   -->
                     <a href="elemento?accion=c_categoria">    
-                       <button>Generar reporte de relación de bienes</button>
+                       <button> Crear nueva categoria </button>
                     </a>
                 </aside>
             </div>

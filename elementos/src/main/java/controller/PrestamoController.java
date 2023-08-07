@@ -11,7 +11,7 @@ public class PrestamoController {
 
     public PrestamoController() {
         Conexion conexion = new Conexion();
-        prestamoDAO = new PrestamoDAO(conexion.conectar());
+      /*   prestamoDAO = new PrestamoDAO(conexion.conectar()); */
     }
 
     // Método para agregar un nuevo préstamo

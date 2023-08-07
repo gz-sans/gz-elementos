@@ -22,7 +22,7 @@ public class PrestamoServlet extends HttpServlet {
     public PrestamoServlet() {
         super();
         Conexion conexion = new Conexion();
-        prestamoDAO = new PrestamoDAO(conexion.conectar());
+      /*   prestamoDAO = new PrestamoDAO(conexion.conectar()); */
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
